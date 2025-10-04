@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MESIN SANKI 1</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu">
+                <a href="#">Home</a>
+                <a href="#">Database</a>
+                <a href="#">Control</a>
+                <a href="#">Monitoring</a>
+            </div>
+            <div class="logo"></div>
+        </nav>
+    </header>
+    <main>
+
+        <div class="main-container">
+            <!-- Kiri: Panel 1 dan 2 berjejer atas-bawah -->
+            <div class="left-container">
+                <div class="panel1">
+                    <section class="stats-container">
+                        <div class="panel2">
+                            <div class="numerik-display-container">
+                                <div class="numerik-text">SLIDE POSITION</div>
+                                <div class="numerik-display-box" id="numerikValue">0000.0 mm</div>
+                            </div>
+
+                            <div class="numerik-display-container2">
+                                <div class="numerik-text2">UPPER LIMIT</div>
+                                <div class="numerik-display-box2" onclick="openPopup(this)" id="numerikValue1">0000.0 mm</div>
+                            </div>
+                            
+                            <div class="numerik-display-container2">
+                                <div class="numerik-text2">SLOW DESCENT</div>
+                                <div class="numerik-display-box2" onclick="openPopup(this)" id="numerikValue2">0000.0 mm</div>
+                            </div>
+                            
+                            <div class="numerik-display-container2">
+                                <div class="numerik-text2">LOWER LIMIT</div>
+                                <div class="numerik-display-box2" onclick="openPopup(this)" id="numerikValue3">0000.0 mm</div>
+                            </div>
+
+                             <!-- Popup -->
+                            <div id="popup" class="popup" style="display: none;">
+                                <div class="popup-content">
+                                <span class="close-btn" onclick="closePopup()">&times;</span>
+                                <h2>Edit Value</h2>
+                                <p id="info-min-max">Enter a value between 100 and 2100:</p>
+                                <input 
+                                    type="number" 
+                                    id="numericalInput" 
+                                    placeholder="Enter new value" 
+                                    min="100" 
+                                    max="2100"
+                                >
+                                <div class="popup-buttons">                                    
+                                    <button onclick="closePopup()">Back</button>
+                                    <button onclick="setValue()">Set</button>
+                                </div>
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="panel4">
+                            <div class="panel5">
+                                <div class="numerik-display-container">
+                                    <div class="numerik-text">PRESSURE</div>
+                                    <div class="numerik-display-box" id="numerikValue6">0000 kN</div>
+                                </div>
+
+                                <div class="disp">
+                                    <div class="numerik-text2">SET  PRESSURE</div>
+                                    <div class="numerik-display-box2" onclick="openPopup2(this)" id="numerikValue4">0000 kN</div>
+                                </div>
+
+                                 <!-- Popup -->
+                                <div id="popup2" class="popup" style="display: none;">
+                                    <div class="popup-content">
+                                    <span class="close-btn" onclick="closePopup2()">&times;</span>
+                                    <h2>Edit Value</h2>
+                                    <p id="info-min-max2">Enter a value between 400 and 2000:</p>
+                                    <input 
+                                        type="number" 
+                                        id="numericalInput2" 
+                                        placeholder="Enter new value" 
+                                        min="400" 
+                                        max="2000"
+                                    >
+                                    <div class="popup-buttons">                                    
+                                        <button onclick="closePopup2()">Back</button>
+                                        <button onclick="setValue2()">Set</button>
+                                    </div>
+                                    </div>
+                                </div>  
+                            </div>
+
+                            <div class="panel6">
+                                <div class="numerik-text1">BALANCE</div>
+                                <div class="slider1-container">                                    
+                                    <div class="slider-track">
+                                        <div class="slider-fill" id="sliderFill"></div>
+                                    </div>
+                                </div>                               
+                            </div>
+
+                            <div class="panel9">
+                                <div class="monitorcountainer">
+                                    <div class="monitoringio">
+                                        <div class="numerik-text4">TABLE</div>
+                                        <div id="table" class="table"></div>
+                                    </div>
+
+                                    <div class="monitoringio">
+                                        <div class="numerik-text4">REVERSE</div>
+                                        <div id="reverse" class="table"></div>
+                                    </div>
+
+                                    <div class="monitoringio">
+                                        <div class="numerik-text4">DESCENT</div>
+                                        <div id="descent" class="table"></div>
+                                    </div>
+
+                                    <div class="monitoringio">
+                                        <div class="numerik-text4">SWITCH</div>
+                                        <div id="safetyswitchlamp" class="table"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>                        
+                    </section>
+
+                    <div class="numerik-display-container4">
+                        <div class="panel7">
+                            <div class="numerik-display-container3">
+                                <div class="numerik-text3">OIL TEMPERATURE</div>
+                                <div class="numerik-display-box3" id="numerikValue5">00.0 °C</div>
+                            </div>
+                        </div>
+                        <div class="panel8">
+                            <div class="numerik-display-container5">
+                                <div class="numerik-display-sanki" id="numerikValu">SANKI 1</div>
+
+                                <div class="numerik-display-container6">
+                                    <button id="buzzerstophmi" class="button button-try" onmousedown="buzzerstophmidown()" onmouseup="buzzerstophmiup()" onmouseleave="buzzerstophmiup()">BUZZER STOP</button>
+                                <button id="resethmi" class="button button-try" onmousedown="resethmidown()" onmouseup="resethmiup()" onmouseleave="resethmiup()">RESET</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        <div class="panel">
+            <div id="lampu" class="lampu">POWER</div>
+            <button id="operationButton" class="button button-operation" onmousedown="operationrdown()" onmouseup="operationrup()" onmouseleave="operationrup()">OPERATION READY</button>
+            <div class="switch-wrapper">   
+                <a>OFF ON AUTO</a>            
+                <div class="switch1" id="threeStateSwitch" data-state="OFF">
+                    <div class="knob1" id="knobText1">OFF</div>
+                  </div>
+                <button id="tryButton" class="button button-try" onmousedown="buttontrydown()" onmouseup="buttontryup()" onmouseleave="buttontryup()">TRY</button>
+            </div> 
+            <button id="NCButton" class="button button-NC" onmousedown="sendOperationSignal()" onmouseup="releaseOperationSignal()">NC</button>
+
+            <div class="switch-wrapper">
+                <p>CONTROL</p>                
+                <label class="switch">
+                    <input type="checkbox" id="controlOnOff">
+                    <span class="slider"></span>
+                </label>
+            </div> 
+            <button id="operationOffButton" class="button button-operationOff" >OPERATION OFF</button>
+            <button id="TRYButton" class="button button-TRY" onmousedown="TRYbtndown()" onmouseup="TRYbtnup()" onmouseleave="TRYbtnup()" onmouseleave="TRYbtnup()">TRY</button>
+            <div class="switch-wrapper">                
+                <label class="switch">
+                    <input type="checkbox" id="tryUpDown">
+                    <span class="sliderupdown"></span>
+                </label>
+                <button id="tryNozzleButton" class="button button-tryNozzle" onmousedown="tryNozzledown()" onmouseup="tryNozzleup()" onmouseleave="tryNozzleup()">TRY NOZZLE</button>
+            </div> 
+
+            <button id="ascentButton" class="button button-ascent" onmousedown="ascentdown()" onmouseup="ascentup()" onmouseleave="ascentup()">ASCENT</button>
+            <button id="slowascentButton" class="button button-slowascent" onmousedown="slowascentdown()" onmouseup="slowascentup()" onmouseleave="slowascentup()">SLOW ASCENT</button>
+            <button id="StopButton" class="button button-stop" onmousedown="stopdown()" onmouseup="stopup()" onmouseleave="stopup()">STOP</button>
+            <div class="switch-wrapper">                
+                <label class="switch">
+                    <input type="checkbox" id="ejector">
+                    <span class="sliderejector"></span>
+                </label>
+                <button id="ejectorButton" class="button button-ejector" onmousedown="ejectordown()" onmouseup="ejectorup()" onmouseleave="ejectorup()">EJECTOR</button>
+            </div> 
+            
+            <button id="descentButton" class="button button-descent" onmousedown="descentdown()" onmouseup="descentup()" onmouseleave="descentup()">DESCENT</button>
+            <button id="slowdescentButton" class="button button-slowdescent" onmousedown="slowdescentdown()" onmouseup="slowdescentup()" onmouseleave="slowdescentup()">SLOW DESCENT</button>         
+            <button id="bolsterinButton" class="button button-bolsterin" onmousedown="bolsterindown()" onmouseup="bolsterinup()" onmouseleave="bolsterinup()">TABLE BOLSTER IN</button>
+            <button id="bolsterrtcButton" class="button button-bolsterrtc" onmousedown="bolsterrtcdown()" onmouseup="bolsterrtcup()" onmouseleave="bolsterrtcup()">SLIDE BOLSTER RTC</button>
+
+            <button id="balancedescentButton" class="button button-balancedescentButton" onmousedown="balancedescentButtondown()" onmouseup="balancedescentButtonup()" onmouseleave="balancedescentButtonup()">BALANCE DESCENT</button>
+            <div class="potensio-container">
+                <div class="mbp">MAIN BALANCE PRESSURE</div>
+                <div class="potensio" id="potensio">
+                    <div class="knob" id="knob" onmouseup="knopup()"></div>
+                    <div class="value-display" id="potensioValue"></div>
+                </div>
+            </div>
+            <button id="bolsteroutButton" class="button button-bolsterout" onmousedown="bolsteroutdown()" onmouseup="bolsteroutup()" onmouseleave="bolsteroutup()">TABLE BOLSTER OUT</button>
+            <button id="bolsterrevButton" class="button button-bolsterrev" onmousedown="bolsterrevdown()" onmouseup="bolsterrevup()" onmouseleave="bolsterrevup()">SLIDE BOLSTER REV</button>
+
+            <div class="switch-wrapper">
+                <p>ADHESION SENSOR</p>                
+                <label class="switch">
+                    <input type="checkbox" id="adhesionsensor">
+                    <span class="slider"></span>
+                </label>
+            </div> 
+            <button id="emergencyStopButton" class="button button-emergency" onmousedown="toggleEmergencyStop()" onmouseup="releaseEmergencyStop()">EMERGENCY STOP RELEASED</button>
+            <div class="switch-wrapper">
+                <p>LIGHT</p>                
+                <label class="switch">
+                    <input type="checkbox" id="light">
+                    <span class="slider"></span>
+                </label>
+            </div> 
+            <div class="switch-wrapper">                
+                <label class="switch">
+                    <input type="checkbox" id="sidecore">
+                    <span class="sidecore"></span>
+                </label>
+                <button id="sidecoreButton" class="button button-sidecore" onmousedown="sidecoredown()" onmouseup="sidecoreup()" onmouseleave="sidecoreup()">SIDE CORE</button>
+            </div> 
+
+        </div>
+
+        </div>    
+    </main>
+    <footer>
+      <p>© 2025 Mesin Sanki 1</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+  </html>

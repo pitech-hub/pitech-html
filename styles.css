@@ -1,0 +1,1195 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f9f9f9;
+    color: #333;
+    line-height: 1;
+    zoom: 80%;
+  }
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, #313131, #2f2a2a);
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    
+}
+
+.navbar .menu {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar .menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.navbar .menu a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.navbar .hamburger {
+    display: none;
+    position: absolute;
+    left: 15px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        justify-content: space-between;
+    }
+
+    .navbar .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        left: 15px;
+        background: linear-gradient(90deg, #313131, #2f2a2a);
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        width: 200px;
+        animation: slideIn 0.3s ease;
+    }
+
+    .navbar .menu.active {
+        display: flex;
+    }
+
+    .navbar .menu a {
+        text-align: center;
+        padding: 15px;
+        font-size: 1rem;
+    }
+
+    .navbar .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+
+    .navbar .hamburger span {
+        background-color: white;
+        height: 2px;
+        width: 22px;
+        margin: 4px 0;
+        display: block;
+        border-radius: 2px;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+  .main-container {
+    display: grid;
+    grid-template-columns: auto 600px; /* Dua kolom, kolom pertama fleksibel, kolom kedua dengan lebar tetap */
+    grid-template-rows: auto auto; /* Dua baris, otomatis menyesuaikan tinggi konten */
+    gap: 10px; /* Jarak antar elemen */
+    padding: 20px;
+    background-color: #f0f0f0;
+    height: auto; /* Tinggi penuh layar */
+  }
+  
+  .left-container {
+    display: grid;
+    grid-template-rows: 400px auto; /* Dua baris, panel 1 dan 2 di atas-bawah */
+    gap: 10px; /* Jarak antar panel */
+  }
+  
+  .panel1 {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: 770px; /* Tinggi tetap untuk semua panel */
+  }
+  .panel2 {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    height: 550px; /* Tinggi tetap untuk semua panel */
+    width: 580px;
+    border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+  }
+
+  .panel4 {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 0;
+    height: 550px; /* Tinggi tetap untuk semua panel */
+    width: 580px;
+  }
+
+  .panel5 {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    height: 250px; /* Tinggi tetap untuk semua panel */
+    width: 580px;
+    border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+  }
+
+  .panel6 {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    height: 160px; /* Tinggi tetap untuk semua panel */
+    width: 580px;
+    border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+    margin-top: 10px;
+  }
+  .panel7 {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    height: 100px; /* Tinggi tetap untuk semua panel */
+    width: 580px;
+    border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+    margin-top: 35px;
+    margin-left: 25px;
+  }
+
+  .panel8 {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    height: 100px; /* Tinggi tetap untuk semua panel */
+    width: 580px;
+    border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+    margin-top: 35px;
+    margin-left: 11px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+  }
+
+  .panel9 {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    height: 120px; /* Tinggi tetap untuk semua panel */
+    width: 580px;
+    border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+    margin-top: 10px;
+  }
+
+  .panel3 {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: 700px; /* Tinggi tetap untuk semua panel */
+  }
+  
+
+  .panel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+
+.lampu {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #999caa; /* Lampu mati */
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: #120303;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin: 15px auto;
+    display: flex; /* Gunakan flexbox */
+    justify-content: center; /* Posisikan teks di tengah secara horizontal */
+    align-items: center; /* Posisikan teks di tengah secara vertikal */
+}
+
+.lampu.active {
+    background: #ffdd00; /* Lampu hidup (kuning) */
+    box-shadow: 0 0 20px rgba(255, 221, 0, 0.6);
+}
+
+.lampu.inactive {
+    background: #999caa; /* Lampu mati (abu-abu) */
+}
+
+.button {
+    width: 90px;
+    height: 90px;
+    margin: 15px auto;
+    border: none;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #120303;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.button:active {
+    transform: translateY(2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.button.active {
+  background: #00ff00; /* Hijau saat mouse down */
+  color: #000000;
+}
+
+.button-operation {
+    background: linear-gradient(135deg, #999caa, #999caa);
+}
+
+
+.button-operation.active {
+  transform: translateY(0px);
+  background: linear-gradient(135deg, #1ef734, #00ff44); /* Warna merah lebih gelap ketika aktif */
+}
+
+.button-try {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+  height: 45px;
+  margin: 10px auto;
+  border-radius: 15px;
+}
+
+
+
+.button-operationOff {
+    background: linear-gradient(135deg, #999caa, #999caa);
+    cursor: auto;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.2);
+}
+
+.button-operationOff:hover {
+  transform: translateY(0px);
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+}
+
+.button-operationOff.active {
+  transform: translateY(0px);
+  background: linear-gradient(135deg, #d40d0d, #ff5656); 
+}
+
+.button-TRY {
+  background: linear-gradient(135deg, #f7991e, #ff8400);
+}
+
+.button-TRY.active {
+  background: linear-gradient(135deg, #553103, #924b00); /* Hijau saat mouse down */
+  color: #000000;
+}
+.button-tryNozzle {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+  height: 45px;
+  margin: 10px auto;
+  border-radius: 15px;
+}
+
+.button-ascent {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+}
+
+.button-slowascent {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+}
+
+/* Tombol Stop */
+.button-stop {
+    background: linear-gradient(135deg, #e0e715, #fffa62); /* Warna merah */
+    color: #120303;
+}
+
+.button-stop.active {
+  background: linear-gradient(135deg, #929701, #928d05);; /* Hijau saat mouse down */
+  color: #000000;
+}
+/* */
+
+.button-ejector {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+  height: 45px;
+  margin: 10px auto;
+  border-radius: 15px;
+}
+
+.button-descent {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+}
+
+.button-slowdescent {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+}
+
+.button-bolsterin {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+}
+
+.button-bolsterrtc {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+}
+
+.button-balancedescentButton {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+}
+
+.button-bolsterout {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+}
+
+.button-bolsterrev {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+}
+
+.button-sidecore {
+  background: linear-gradient(135deg, #100101, #1c0702);
+  color: #ffffff;
+  height: 45px;
+  margin: 10px auto;
+  border-radius: 15px;
+}
+
+
+/* Tombol Emergency Stop */
+.button-emergency {
+  background: linear-gradient(135deg, #ff1f14, #ff4c3e);
+  color: #ffffff;
+  font-size: 11px;
+}
+
+.button-emergency.active {
+  background: linear-gradient(135deg, #d61a10, #c0251a); /* Warna merah lebih gelap ketika aktif */
+  color: #ffffff;
+}
+
+/* Styling untuk switch */
+.switch-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 35px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 25px;
+    width: 25px;
+    left: 5px;
+    bottom: 5px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  /* Teks di dalam slider */
+  .slider::before {
+    content: "OFF";
+    color: rgb(90, 62, 62);
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  input:checked + .slider {
+    background-color: #4CAF50;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(35px);
+  }
+  
+  /* Teks berubah ketika switch ON */
+  input:checked + .slider::before {
+    content: "ON";
+    color: rgb(74, 43, 43);
+  }
+  
+  .switch-wrapper p {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #120303;
+  }
+
+  .switch-wrapper a {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #120303;
+  }
+
+/* Styling untuk switch */
+
+
+/* */
+  .sliderupdown {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sliderupdown:before {
+    position: absolute;
+    content: "";
+    height: 25px;
+    width: 25px;
+    left: 5px;
+    bottom: 5px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  /* Teks di dalam slider */
+  .sliderupdown::before {
+    content: "UP";
+    color: rgb(90, 62, 62);
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  input:checked + .sliderupdown {
+    background-color: #4CAF50;
+  }
+  
+  input:checked + .sliderupdown:before {
+    transform: translateX(35px);
+  }
+  
+  /* Teks berubah ketika switch ON */
+  input:checked + .sliderupdown::before {
+    content: "DOWN";
+    font-size: 8px;
+    color: rgb(74, 43, 43);
+  }
+
+/* */
+
+/* */
+.sliderejector {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sliderejector:before {
+    position: absolute;
+    content: "";
+    height: 25px;
+    width: 25px;
+    left: 5px;
+    bottom: 5px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  /* Teks di dalam slider */
+  .sliderejector::before {
+    content: "DOWN";
+    color: rgb(90, 62, 62);
+    font-size: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  input:checked + .sliderejector {
+    background-color: #4CAF50;
+  }
+  
+  input:checked + .sliderejector:before {
+    transform: translateX(35px);
+  }
+  
+  /* Teks berubah ketika switch ON */
+  input:checked + .sliderejector::before {
+    content: "UP";
+    font-size: 12px;
+    color: rgb(74, 43, 43);
+  }
+
+/* */
+
+/* */
+.sidecore {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #4CAF50;
+  transition: 0.4s;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidecore:before {
+  position: absolute;
+  content: "";
+  height: 25px;
+  width: 25px;
+  left: 5px;
+  bottom: 5px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Teks di dalam slider */
+.sidecore::before {
+  content: "A";
+  color: rgb(90, 62, 62);
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input:checked + .sidecore {
+  background-color: #4CAF50;
+}
+
+input:checked + .sidecore:before {
+  transform: translateX(35px);
+}
+
+/* Teks berubah ketika switch ON */
+input:checked + .sidecore::before {
+  content: "B";
+  font-size: 12px;
+  color: rgb(74, 43, 43);
+}
+
+/* */
+.potensio-container {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.potensio-container:hover {
+  transform: scale(1.1);
+}
+
+.mbp {
+  position: absolute;
+  font-size: 11px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+.potensio {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #ffffff, #bbbbbb);
+  border-radius: 50%;
+  box-shadow: inset -4px -4px 8px #ffffff, inset 4px 4px 8px #c0c0c0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.knob {
+  width: 15px;
+  height: 15px;
+  background: linear-gradient(145deg, #000000, #3a3a3a);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%; /* Posisi awal di tengah */
+  left: 50%;
+  transform: translate(-50%, -40px) rotate(240deg);
+  transform-origin: center calc(50% + 35px); /* Titik rotasi */
+  cursor: pointer;
+  box-shadow: -1px -1px 3px #ffffff, 1px 1px 3px #1e1e1e;
+  transition: background 0.2s ease;
+}
+
+.knob:active {
+  background: #007BFF;
+  box-shadow: -2px -2px 4px #00aaff, 2px 2px 4px #005fcc;
+}
+
+.value-display {
+  position: absolute;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #333;
+    color: #fff;
+    font-size: 0.9rem;
+    margin-top: -10px;
+  }
+
+/* Stats Section */
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.card {
+  background: #e6e6e6;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  margin: 10px;
+  max-width: 250px;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  color: #0066cc;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/*-----------------------------------------------*/
+
+
+/* Numerik Display Styling slide position */
+  .numerik-display-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .numerik-display-box {
+    width: 400px;
+    height: 80px;
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 80px;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 10px;
+    margin: 10px 0;
+    border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+    transition: all 0.1s ease-in-out;
+  }
+  
+  .numerik-text{
+    margin-bottom: 5px;
+    color: #000000;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    
+  }
+
+  .numerik-display-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .numerik-text1{
+    margin-bottom: 10px;
+    color: #000000;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0px;
+    
+  }
+  
+/*------------------------*/
+
+.disp {
+  display: flex;
+  flex-direction: row; /* Ubah dari column menjadi row */
+  align-items: center; /* Pusatkan elemen secara vertikal */
+  gap: 100px; /* Beri jarak antar elemen */
+  margin-top: 10px;
+}
+
+/*------------------------------*/
+
+.monitorcountainer {
+  display: flex;
+  flex-direction: row; /* Ubah dari column menjadi row */
+  align-items: center; /* Pusatkan elemen secara vertikal */
+  gap: 10px; /* Beri jarak antar elemen */
+  margin-top: -10px;
+}
+
+.monitoringio{
+  width: 200px;
+  height: auto;
+
+}
+
+.numerik-text4 {
+  width: auto;
+  height: auto;
+  color: #000000;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center; /* Opsional: pastikan teks rata kiri */
+  margin-left: 0;
+}
+
+
+.table {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #999caa; /* Lampu mati */
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  color: #120303;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 5px auto;
+  display: flex; /* Gunakan flexbox */
+  justify-content: center; /* Posisikan teks di tengah secara horizontal */
+  align-items: center; /* Posisikan teks di tengah secara vertikal */
+}
+
+.table.active {
+  background: #00ff15; /* Lampu hidup */
+  box-shadow: 0 0 20px rgba(0, 255, 17, 0.6);
+}
+
+.table.inactive {
+  background: #999caa; /* Lampu mati (abu-abu) */
+}
+
+
+
+  /* upper, slow, desc */
+  /* Numerik Display Styling */
+.numerik-display-container2 {
+  display: flex;
+  flex-direction: row; /* Ubah dari column menjadi row */
+  align-items: center; /* Pusatkan elemen secara vertikal */
+  gap: 100px; /* Beri jarak antar elemen */
+  margin-top: 50px;
+}
+.numerik-display-box2 {
+  width: 250px;
+  height: 60px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px;
+  color: #000000;
+  background-color: #ffe600;
+  border-radius: 10px;
+  border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.numerik-text2 {
+  width: 120px;
+  height: auto;
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left; /* Opsional: pastikan teks rata kiri */
+  margin-left: 35px;
+}
+
+.numerik-display-box2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.numerik-display-box2:active {
+  transform: translateY(2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+  /* Numerik Display Styling */
+  /* temperature*/
+  .numerik-display-container3 {
+    display: flex;
+    flex-direction: row; /* Ubah dari column menjadi row */
+    align-items: center; /* Pusatkan elemen secara vertikal */
+    gap: 100px; /* Beri jarak antar elemen */
+    margin-top: 0px;
+  }
+  
+  .numerik-display-box3 {
+    width: 250px;
+    height: 60px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 60px;
+    color: #ffffff;
+    background-color: #007bff;
+    border-radius: 10px;
+    border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+    transition: all 0.1s ease-in-out;
+  }
+  
+  .numerik-text3 {
+    width: 120px;
+    height: auto;
+    color: #000000;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left; /* Opsional: pastikan teks rata kiri */
+    margin-left: 35px;
+  }
+  
+  .numerik-display-box3:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  }
+
+/* --------------------------------------------  */
+
+.numerik-display-container4 {
+  display: flex;
+  flex-direction: row; /* Ubah dari column menjadi row */
+  align-items: center; /* Pusatkan elemen secara vertikal */
+  gap: 10px; /* Beri jarak antar elemen */
+  margin-top: -25px;
+  
+}
+
+.numerik-display-sanki {
+  width: auto;
+  height: auto;
+  font-size: 60px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 60px;
+  color: #007bff;
+}
+
+/*------------------------------------------------*/
+
+.numerik-display-container5 {
+  display: flex;
+  flex-direction: row; /* Ubah dari column menjadi row */
+  align-items: center; /* Pusatkan elemen secara vertikal */
+  gap: 40px; /* Beri jarak antar elemen */
+  margin-top: 0px;
+}
+
+.numerik-display-container6 {
+  display: flex;
+  flex-direction: row; /* Ubah dari column menjadi row */
+  align-items: center; /* Pusatkan elemen secara vertikal */
+  gap: 20px; /* Beri jarak antar elemen */
+  margin-top: -5px;
+}
+
+
+/* General popup styling */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Popup box styling */
+.popup-content {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Close button styling */
+.close-btn {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  float: right;
+}
+
+/* Min/max info text */
+.popup-content p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+}
+
+/* Input styling */
+.popup-content input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Buttons styling */
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-buttons button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.popup-buttons button:first-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.popup-buttons button:first-child:hover {
+  background-color: #0056b3;
+}
+
+.popup-buttons button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+.popup-buttons button:last-child:hover {
+  background-color: #c0392b;
+}
+
+/*---------------------------------*/
+
+/* Container untuk slider */
+.slider1-container {
+  width: 100%;
+  max-width: 400px; /* Sesuaikan dengan kebutuhan */
+  margin: 0px auto;
+  position: relative;
+  
+}
+
+/* Jalur slider */
+.slider-track {
+  width: 100%;
+  height: 80px;
+  background: #ddd; /* Warna jalur slider */
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #2f2a2a5f; /* Garis tepi dengan warna hitam */
+}
+
+/* Fill untuk menunjukkan nilai */
+.slider-fill {
+  height: 100%;
+  width: 0%; /* Akan diperbarui sesuai nilai potensio */
+  background: linear-gradient(90deg, #007bff, #00c4ff);
+  transition: width 0.1s ease-in-out;
+  border-radius: 1px 0 0 1px;
+}
+
+/*--------------------------*/
+
+.switch1 {
+  position: relative;
+  width: 90px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 20px;
+  margin: 0px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.switch1 .knob1 {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.switch1[data-state="OFF"] .knob1 {
+  left: 4px;
+}
+
+.switch1[data-state="ON"] .knob1 {
+  left: 32px;
+}
+
+.switch1[data-state="AUTO"] .knob1 {
+  left: 60px;
+  font-size: 8px;
+}
