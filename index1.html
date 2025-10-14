@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Journey - Pembelajaran Interaktif</title>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style1.css" />
+  </head>
+  <body>
+    <div id="slide-container">
+      <div id="media-container">
+        <!-- Tombol START -->
+        <div id="btn-start" class="btn">
+          <img
+            src="ASSET/Start.png"
+            alt="Start Button"
+            onclick="startJourney()"
+          />
+        </div>
+
+        <!-- Loader -->
+        <div id="progress-loader-container" class="progress-loader-container">
+          <div class="progress-loader">
+            <div class="progress-segments" id="progress-segments"></div>
+          </div>
+          <div class="loading-text">Loading...</div>
+        </div>
+
+        <input
+          type="text"
+          id="text-input"
+          class="input-box"
+          placeholder="ENTER YOUR NAME"
+          oninput="this.value = this.value.toUpperCase().replace(/[^A-Z\s]/g, '')"
+        />
+
+        <!-- Tombol NEXT -->
+        <div id="btn-next" class="btn">
+          <img src="ASSET/Next.png" alt="Next Button" onclick="nextMedia()" />
+        </div>
+
+        <div id="btn-materi" class="btn">
+          <img
+            src="ASSET/Materi.png"
+            alt="Materi Button"
+            onclick="MateriButton()"
+          />
+        </div>
+        <div id="btn-materi1" class="btn">
+          <img
+            src="ASSET/materi1.png"
+            alt="Materi1 Button"
+            onclick="Materi1Button()"
+          />
+        </div>
+
+        <div id="btn-materi2" class="btn">
+          <img
+            src="ASSET/materi2.png"
+            alt="Materi2 Button"
+            onclick="Materi2Button()"
+          />
+        </div>
+
+        <div id="btn-materi3" class="btn">
+          <img
+            src="ASSET/materi3.png"
+            alt="Materi3 Button"
+            onclick="Materi3Button()"
+          />
+        </div>
+
+        <div id="btn-quiz" class="btn">
+          <img src="ASSET/Quiz.png" alt="Quiz Button" onclick="QuizButton()" />
+        </div>
+
+        <div id="btn-game" class="btn">
+          <img src="ASSET/Games.png" alt="Game Button" onclick="GameButton()" />
+        </div>
+
+        <div id="btn-nextm1" class="btn">
+          <img src="ASSET/Next.png" alt="Next Button" onclick="nextMedia()" />
+        </div>
+        <div id="btn-backm1" class="btn">
+          <img src="ASSET/Back.png" alt="Back Button" onclick="backMedia()" />
+        </div>
+        <div id="btn-backm2" class="btn">
+          <img src="ASSET/Back.png" alt="Back Button" onclick="backMedia2()" />
+        </div>
+        <div id="btn-backm3" class="btn">
+          <img src="ASSET/Back.png" alt="Back Button" onclick="backMedia3()" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const mediaList = [
+        { type: "image", src: "IMG/1.png" },
+        { type: "image", src: "IMG/2.png" },
+        { type: "image", src: "IMG/3.png" },
+        { type: "image", src: "IMG/4.png" },
+        { type: "image", src: "IMG/5.png" },
+        { type: "image", src: "IMG/6.png" },
+        { type: "image", src: "IMG/7.png" },
+        { type: "image", src: "IMG/10.png" },
+        { type: "image", src: "IMG/11.png" },
+        { type: "image", src: "IMG/12.png" },
+        { type: "image", src: "IMG/13.png" },
+        { type: "image", src: "IMG/18.png" },
+        { type: "image", src: "IMG/20.png" },
+        { type: "image", src: "IMG/21.png" },
+        { type: "image", src: "IMG/22.png" },
+        { type: "image", src: "IMG/23.png" },
+        { type: "image", src: "IMG/24.png" },
+        { type: "image", src: "IMG/25.png" },
+        { type: "image", src: "IMG/26.png" },
+        { type: "image", src: "IMG/27.png" },
+        { type: "image", src: "IMG/28.png" },
+        { type: "image", src: "IMG/29.png" },
+      ];
+
+      let currentIndex = 0;
+
+      function showMedia(index) {
+        const mediaContainer = document.getElementById("media-container");
+        const btnStart = document.getElementById("btn-start");
+        const btnNext = document.getElementById("btn-next");
+        const txtinput = document.getElementById("text-input");
+        const btnMateri = document.getElementById("btn-materi");
+        const btnMateri1 = document.getElementById("btn-materi1");
+        const btnMateri2 = document.getElementById("btn-materi2");
+        const btnMateri3 = document.getElementById("btn-materi3");
+        const btnQuiz = document.getElementById("btn-quiz");
+        const btnGame = document.getElementById("btn-game");
+        const btnNextM1 = document.getElementById("btn-nextm1");
+        const btnBackM1 = document.getElementById("btn-backm1");
+        const btnBackM2 = document.getElementById("btn-backm2");
+        const btnBackM3 = document.getElementById("btn-backm3");
+        // Hapus media lama (kecuali tombol)
+        mediaContainer
+          .querySelectorAll(
+            "img:not(#btn-start img):not(#btn-next img):not(#btn-materi img):not(#btn-materi1 img):not(#btn-materi2 img):not(#btn-materi3 img):not(#btn-quiz img):not(#btn-game img):not(#btn-nextm1 img):not(#btn-backm1 img):not(#btn-backm2 img):not(#btn-backm3 img), video"
+          )
+          .forEach((el) => el.remove());
+
+        const currentMedia = mediaList[index];
+        const mediaElement = document.createElement(
+          currentMedia.type === "video" ? "video" : "img"
+        );
+        mediaElement.src = currentMedia.src;
+        if (currentMedia.type === "video") {
+          mediaElement.controls = true;
+          mediaElement.autoplay = true;
+          mediaElement.loop = true;
+          mediaElement.muted = true;
+        }
+
+        // Tambahkan media ke container
+        mediaContainer.insertBefore(mediaElement, btnStart);
+
+        // Tampilkan tombol sesuai keadaan (tetap format aslimu)
+        btnStart.style.display = index === 0 ? "block" : "none";
+        btnNext.style.display = index === 1 ? "block" : "none";
+        txtinput.style.display = index === 1 ? "block" : "none";
+        btnMateri.style.display = index === 2 ? "block" : "none"; // ✅ tampil mulai slide ke-3
+        btnQuiz.style.display = index === 2 ? "block" : "none";
+        btnGame.style.display = index === 2 ? "block" : "none";
+        btnMateri1.style.display = index === 3 ? "block" : "none";
+        btnMateri2.style.display = index === 3 ? "block" : "none";
+        btnMateri3.style.display = index === 3 ? "block" : "none";
+        btnNextM1.style.display = [
+          4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20,
+        ].includes(index)
+          ? "block"
+          : "none";
+        btnBackM1.style.display = [
+          4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21,
+        ].includes(index)
+          ? "block"
+          : "none";
+        btnBackM2.style.display = index === 13 ? "block" : "none";
+        btnBackM3.style.display = index === 18 ? "block" : "none";
+
+        // Jika sedang di slide 1 (input nama)
+        if (index === 1) {
+          txtinput.value = ""; // kosongkan input saat slide dimulai
+          btnNext.style.display = "none"; // sembunyikan tombol next sampai user isi teks
+
+          txtinput.addEventListener("input", () => {
+            btnNext.style.display =
+              txtinput.value.trim() !== "" ? "block" : "none";
+          });
+        }
+      }
+
+      function nextMedia() {
+        if (currentIndex < mediaList.length - 1) {
+          currentIndex++;
+          showMedia(currentIndex);
+        } else {
+          alert("Perjalanan selesai!");
+        }
+      }
+
+      function backMedia() {
+        if (currentIndex > 0) {
+          currentIndex--;
+          showMedia(currentIndex);
+        }
+      }
+
+      // Loader
+      function createProgressSegments() {
+        const container = document.getElementById("progress-segments");
+        container.innerHTML = "";
+        for (let i = 0; i < 10; i++) {
+          const seg = document.createElement("div");
+          seg.className = "segment";
+          container.appendChild(seg);
+        }
+      }
+
+      function animateProgressLoader(callback) {
+        const segments = document.querySelectorAll(".segment");
+        let i = 0;
+        const interval = setInterval(() => {
+          if (i < segments.length) {
+            segments[i].classList.add("filled");
+            i++;
+          } else {
+            clearInterval(interval);
+            setTimeout(callback, 500);
+          }
+        }, 200);
+      }
+
+      function startJourney() {
+        const loader = document.getElementById("progress-loader-container");
+        const btnStart = document.getElementById("btn-start");
+        btnStart.style.display = "none";
+        loader.style.display = "flex";
+        createProgressSegments();
+        animateProgressLoader(() => {
+          loader.style.display = "none";
+          currentIndex = 1;
+          showMedia(currentIndex);
+        });
+      }
+
+      function MateriButton() {
+        currentIndex = 3; // pindah ke index 3 → IMG/4.png
+        showMedia(currentIndex);
+      }
+
+      function Materi1Button() {
+        currentIndex = 4; // pindah ke index 3 → IMG/4.png
+        showMedia(currentIndex);
+      }
+
+      function Materi2Button() {
+        currentIndex = 13; // pindah ke index 3 → IMG/4.png
+        showMedia(currentIndex);
+      }
+
+      function Materi3Button() {
+        currentIndex = 18; // pindah ke index 3 → IMG/4.png
+        showMedia(currentIndex);
+      }
+      function backMedia2() {
+        currentIndex = 3; // pindah ke index 3 → IMG/4.png
+        showMedia(currentIndex);
+      }
+      function backMedia3() {
+        currentIndex = 3; // pindah ke index 3 → IMG/4.png
+        showMedia(currentIndex);
+      }
+
+      function QuizButton() {}
+      function GameButton() {}
+
+      // Pertama kali load
+      showMedia(currentIndex);
+    </script>
+  </body>
+</html>

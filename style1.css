@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Solway:wght@400;500;700&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #cde4bd;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Kontainer utama */
+#slide-container {
+  text-align: center;
+  width: 90%;
+  max-width: 1100px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Area media */
+#media-container {
+  width: 100%;
+  max-width: 1100px;
+  aspect-ratio: 16 / 9;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#media-container img,
+#media-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Progress bar loader style untuk setelah klik START */
+.progress-loader-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #cde4bd;
+  z-index: 10;
+}
+
+.progress-loader {
+  width: 80%;
+  max-width: 500px;
+  height: 40px;
+  background-color: #e8f5e9;
+  border-radius: 1px;
+  padding: 5px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-segments {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 3px;
+}
+
+.segment {
+  flex: 1;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.segment.filled {
+  background-color: #ff7828;
+  animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Progress bar style */
+.progress-container {
+  width: 80%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #3498db;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* Loading text */
+.loading-text {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* ///////////////////////////// */
+.btn {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 10; /* pastikan di atas media */
+}
+
+.btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.btn:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+.btn img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Tombol Start */
+#btn-start {
+  top: 65%;
+  left: 50%;
+  width: 11%;
+}
+
+/* Tombol next */
+#btn-next {
+  bottom: 17%;
+  left: 50%;
+  width: 7%;
+}
+
+/* Tombol Materi */
+#btn-materi {
+  top: 49%;
+  left: 27.5%;
+  width: 13%;
+}
+
+#btn-materi1 {
+  top: 44%;
+  left: 24%;
+  width: 38%;
+}
+#btn-materi2 {
+  top: 44%;
+  left: 75%;
+  width: 38%;
+}
+#btn-materi3 {
+  top: 73%;
+  left: 50%;
+  width: 38%;
+}
+
+#btn-quiz {
+  top: 49%;
+  left: 52%;
+  width: 13%;
+}
+
+#btn-game {
+  top: 49%;
+  left: 76.5%;
+  width: 13%;
+}
+
+#btn-nextm1 {
+  bottom: -3.5%;
+  right: 6.6%;
+  width: 6%;
+}
+#btn-backm1 {
+  bottom: -3.5%;
+  left: 12.5%;
+  width: 6%;
+}
+#btn-backm2 {
+  bottom: -3.5%;
+  left: 12.5%;
+  width: 6%;
+}
+#btn-backm3 {
+  bottom: -3.5%;
+  left: 12.5%;
+  width: 6%;
+}
+
+/* Input pertama */
+.input-box {
+  position: absolute;
+  padding: 2px;
+  border: none;
+  /* border: 0px solid #000000; */
+  border-radius: 0;
+  font-size: 22px;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transform: translate(-50%, -50%);
+  font-family: "Solway", serif; /* pastikan input juga memakai Solway */
+  outline: none;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+/* Posisi & ukuran spesifik */
+#text-input {
+  width: 50%;
+  height: 10%;
+  top: 55%;
+  left: 50%;
+}
