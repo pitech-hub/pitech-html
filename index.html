@@ -1,286 +1,1067 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Food Journey - Pembelajaran Interaktif</title>
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="style1.css" />
-  </head>
-  <body>
-    <div id="slide-container">
-      <div id="media-container">
-        <!-- Tombol START -->
-        <div id="btn-start" class="btn">
-          <img
-            src="ASSET/Start.png"
-            alt="Start Button"
-            onclick="startJourney()"
-          />
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Andi Nugroho | Industry 4.0 Engineer</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-        <!-- Loader -->
-        <div id="progress-loader-container" class="progress-loader-container">
-          <div class="progress-loader">
-            <div class="progress-segments" id="progress-segments"></div>
-          </div>
-          <div class="loading-text">Loading...</div>
-        </div>
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #0b1120;
+            --bg-card: #151e32;
+            --primary: #0ea5e9;
+            --accent: #6366f1;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+            --transition: all 0.3s ease;
+            --nav-height: 70px;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+        }
 
-        <input
-          type="text"
-          id="text-input"
-          class="input-box"
-          placeholder="ENTER YOUR NAME"
-          oninput="this.value = this.value.toUpperCase().replace(/[^A-Z\s]/g, '')"
-        />
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        <!-- Tombol NEXT -->
-        <div id="btn-next" class="btn">
-          <img src="ASSET/Next.png" alt="Next Button" onclick="nextMedia()" />
-        </div>
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        
+        /* --- UTILITIES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        <div id="btn-materi" class="btn">
-          <img
-            src="ASSET/Materi.png"
-            alt="Materi Button"
-            onclick="MateriButton()"
-          />
-        </div>
-        <div id="btn-materi1" class="btn">
-          <img
-            src="ASSET/materi1.png"
-            alt="Materi1 Button"
-            onclick="Materi1Button()"
-          />
-        </div>
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-        <div id="btn-materi2" class="btn">
-          <img
-            src="ASSET/materi2.png"
-            alt="Materi2 Button"
-            onclick="Materi2Button()"
-          />
-        </div>
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
 
-        <div id="btn-materi3" class="btn">
-          <img
-            src="ASSET/materi3.png"
-            alt="Materi3 Button"
-            onclick="Materi3Button()"
-          />
-        </div>
+        .highlight { color: var(--primary); }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* --- ANIMATION CLASSES --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        <div id="btn-quiz" class="btn">
-          <img src="ASSET/Quiz.png" alt="Quiz Button" onclick="QuizButton()" />
-        </div>
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%; height: var(--nav-height);
+            background: rgba(11, 17, 32, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
 
-        <div id="btn-game" class="btn">
-          <img src="ASSET/Games.png" alt="Game Button" onclick="GameButton()" />
-        </div>
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
 
-        <div id="btn-nextm1" class="btn">
-          <img src="ASSET/Next.png" alt="Next Button" onclick="nextMedia()" />
-        </div>
-        <div id="btn-backm1" class="btn">
-          <img src="ASSET/Back.png" alt="Back Button" onclick="backMedia()" />
-        </div>
-        <div id="btn-backm2" class="btn">
-          <img src="ASSET/Back.png" alt="Back Button" onclick="backMedia2()" />
-        </div>
-        <div id="btn-backm3" class="btn">
-          <img src="ASSET/Back.png" alt="Back Button" onclick="backMedia3()" />
-        </div>
-      </div>
+        .logo { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.2rem; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; position: relative; }
+        .nav-links a:hover { color: var(--primary); }
+        
+        .hamburger { display: none; cursor: pointer; font-size: 1.5rem; }
+
+        /* --- HERO SECTION --- */
+        .hero { height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.3; }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; }
+        
+        .hero-badge {
+            display: inline-block; background: rgba(14, 165, 233, 0.1);
+            border: 1px solid var(--primary); color: var(--primary);
+            padding: 5px 12px; border-radius: 20px; font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace; margin-bottom: 1.5rem;
+        }
+
+        .hero h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 1rem; font-weight: 700; }
+        .hero h2 { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 2rem; font-weight: 400; }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 12px 30px; border-radius: 5px; font-weight: 600; cursor: pointer; transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--gradient); color: white; border: none;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5); }
+        
+        .btn-outline {
+            background: transparent; border: 1px solid var(--text-muted);
+            color: var(--text-main); margin-left: 1rem;
+        }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* --- SECTIONS GENERAL --- */
+        section { padding: 100px 0; }
+
+        /* --- ABOUT --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .about-text p { margin-bottom: 1.5rem; color: var(--text-muted); }
+        
+        .about-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .stat-card { background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border-left: 3px solid var(--primary); }
+        .stat-number { font-size: 2rem; font-weight: 700; color: var(--text-main); display: block; }
+        .stat-label { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- TIMELINE --- */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; background: rgba(255,255,255,0.1); }
+        .timeline-item { margin-bottom: 3rem; padding-left: 2rem; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -5px; top: 5px; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); }
+        .timeline-date { font-family: 'JetBrains Mono', monospace; color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem; display: block; }
+        .timeline-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .timeline-company { font-size: 1rem; color: var(--text-muted); margin-bottom: 1rem; display: block; }
+        .timeline-desc li { margin-bottom: 0.5rem; color: var(--text-muted); list-style: disc; margin-left: 1rem; }
+
+        /* --- SKILLS --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .skill-category { background: var(--bg-card); padding: 2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .skill-category h3 { margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 4px; font-size: 0.9rem; transition: var(--transition); }
+        .tag:hover { background: var(--primary); color: white; }
+
+        /* --- PROJECTS --- */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .project-card {
+            background: var(--bg-card); border-radius: 12px; overflow: hidden;
+            transition: var(--transition); position: relative; border: 1px solid rgba(255,255,255,0.05);
+            display: flex; flex-direction: column;
+        }
+        .project-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-color: var(--primary); }
+        
+        .project-img {
+            width: 100%; height: 200px; background-color: #2d3748; position: relative; overflow: hidden; cursor: zoom-in;
+        }
+        .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        
+        .project-img::after {
+            content: '\f00e'; /* FontAwesome images icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: white; font-size: 2rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        .project-card:hover .project-img::after { transform: translate(-50%, -50%) scale(1); }
+        .project-card:hover .project-img img { transform: scale(1.1); }
+        
+        .project-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-title { font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--text-main); font-weight: 600; }
+        .project-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; flex-grow: 1; }
+        .project-meta { display: flex; justify-content: space-between; align-items: center; margin-top: auto; font-size: 0.8rem; }
+        .project-company { color: var(--primary); font-weight: 600; }
+        .project-year { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+        /* --- ACHIEVEMENTS --- */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-card {
+            background: #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .achievement-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+        .rank-gold { border-top: 4px solid var(--gold); }
+        .rank-silver { border-top: 4px solid var(--silver); }
+        .rank-bronze { border-top: 4px solid var(--bronze); }
+
+        .cert-img-container {
+            width: 100%; height: 200px; background-color: #0f172a; overflow: hidden; position: relative; cursor: zoom-in;
+        }
+
+        .cert-img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        
+        .cert-img-container::after {
+            content: '\f065'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0); color: white; font-size: 2rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5); transition: var(--transition); pointer-events: none;
+        }
+        .achievement-card:hover .cert-img-container::after { transform: translate(-50%, -50%) scale(1); }
+        .achievement-card:hover .cert-img-container img { transform: scale(1.05); }
+
+        .achievement-info { padding: 1.5rem; }
+        
+        .rank-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 0.5rem; font-family: 'JetBrains Mono', monospace;
+        }
+        .rank-gold .rank-badge { color: var(--gold); }
+        .rank-silver .rank-badge { color: var(--silver); }
+        .rank-bronze .rank-badge { color: var(--bronze); }
+
+        .achievement-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.4; }
+        .achievement-event { font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem; }
+        .achievement-year { font-size: 0.8rem; color: var(--primary); font-weight: 600; }
+
+        /* --- LIGHTBOX MODAL (UPDATED WITH GALLERY CONTROLS) --- */
+        .lightbox {
+            display: none; 
+            position: fixed;
+            z-index: 9999; 
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 1px solid #334155;
+            object-fit: contain; /* Memastikan gambar tidak gepeng */
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px; right: 30px;
+            color: #f1f5f9;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10000;
+        }
+
+        .close-lightbox:hover { color: var(--primary); }
+        
+        .lightbox-caption {
+            margin-top: 15px;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+        }
+
+        /* Navigation Buttons for Gallery */
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 20px;
+            cursor: pointer;
+            font-size: 2rem;
+            border-radius: 50%;
+            transition: 0.3s;
+            display: none; /* Hidden by default */
+            z-index: 10001;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        /* --- CONTACT --- */
+        .contact-content { text-align: center; max-width: 600px; margin: 0 auto; }
+        .contact-links { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+        .contact-item { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--text-muted); transition: var(--transition); }
+        .contact-item:hover { color: var(--primary); transform: translateY(-5px); }
+        .contact-item i { font-size: 1.5rem; }
+
+        /* --- FOOTER --- */
+        footer { background: #050911; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .hamburger { display: block; color: var(--text-main); }
+            .nav-links {
+                position: absolute; top: var(--nav-height); left: 0; width: 100%;
+                background: var(--bg-card); flex-direction: column; padding: 2rem;
+                gap: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);
+                transform: translateY(-150%); transition: transform 0.3s ease-in-out; z-index: 999;
+            }
+            .nav-links.active { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        
+        <!-- Navigation Buttons (Only visible for Project Galleries) -->
+        <button class="lightbox-nav prev-btn"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-nav next-btn"><i class="fas fa-chevron-right"></i></button>
+
+        <img class="lightbox-content" id="lightbox-img" src="">
+        <div id="lightbox-caption" class="lightbox-caption"></div>
+        <div id="lightbox-counter" style="color: #94a3b8; margin-top: 5px; font-size: 0.8rem;"></div>
     </div>
 
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">&lt;Ahmad Andi<span class="highlight">.Dev</span>/&gt;</a>
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero" id="home">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container">
+            <div class="hero-content reveal">
+                <span class="hero-badge">Industry 4.0 Engineer</span>
+                <h1>Digitalisasi Manufaktur & <span class="highlight">Smart Automation</span></h1>
+                <h2>Ahmad Andi Nugroho</h2>
+                <p>Mengembangkan solusi berbasis Industrial IoT dan Machine Learning untuk sistem industri yang lebih adaptif dan efisien.</p>
+                <div class="cta-group">
+                    <a href="#projects" class="btn btn-primary">Lihat Portofolio <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid reveal">
+                <div class="about-text">
+                    <p>Halo, saya Ahmad Andi Nugroho. Seorang <strong>Industry 4.0 Engineer</strong> yang berbasis di Karawang, Jawa Barat. Saat ini saya bekerja di PT GS Battery Plant Karawang, di mana saya fokus pada pengembangan sistem Machine Learning, integrasi IIoT, dan digitalisasi lini produksi.</p>
+                    <p>Dengan latar belakang pendidikan Mekatronika dari Politeknik Astra (IPK 3.82) dan pengalaman magang di PT Astra Honda Motor, saya memiliki keahlian teknis yang kuat dalam menggabungkan hardware (PLC, Mikrokontroler) dengan software (Web Development, Dashboard, Database) untuk menciptakan solusi end-to-end.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card"><span class="stat-number">3+</span><span class="stat-label">Tahun Pengalaman</span></div>
+                    <div class="stat-card"><span class="stat-number">8+</span><span class="stat-label">Prestasi Nasional</span></div>
+                    <div class="stat-card"><span class="stat-number">10+</span><span class="stat-label">Proyek Digital</span></div>
+                    <div class="stat-card"><span class="stat-number">IIoT</span><span class="stat-label">Core Expertise</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" style="background-color: #0d1522;">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline reveal">
+                <div class="timeline-item">
+                    <span class="timeline-date">Sept 2025 – Sekarang</span>
+                    <h3 class="timeline-title">Expert Industry 4.0</h3>
+                    <span class="timeline-company">PT GS Battery Plant Karawang</span>
+                    <ul class="timeline-desc">
+                        <li>Mengembangkan sistem Machine Learning untuk analisis kualitas produksi.</li>
+                        <li>Optimasi sistem Andon produksi & Auto Spray Mold COS.</li>
+                        <li>Integrasi data produksi ke sistem digital berbasis IIoT.</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">Agu 2025 – Sept 2025</span>
+                    <h3 class="timeline-title">Expert Industry 4.0 Intern</h3>
+                    <span class="timeline-company">PT GS Battery Plant Karawang</span>
+                    <ul class="timeline-desc">
+                        <li>Mengembangkan sistem Machine Learning (YOLO) untuk QC otomatis.</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">Des 2024 – Jul 2025</span>
+                    <h3 class="timeline-title">Junior Engineer Intern</h3>
+                    <span class="timeline-company">PT Astra Honda Motor Plant DMD</span>
+                    <ul class="timeline-desc">
+                        <li>Monitoring multi-mesin CNC berbasis web (Real-time).</li>
+                        <li>Merancang <strong>Voice Alarm System</strong> & Kontrol Software.</li>
+                        <li>Mengembangkan konsep <strong>Digital Twin</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid reveal">
+                <div class="skill-category">
+                    <h3><i class="fas fa-industry highlight"></i> Industrial Automation</h3>
+                    <div class="skill-tags">
+                        <span class="tag">PLC (Omron/Siemens)</span>
+                        <span class="tag">SCADA / HMI</span>
+                        <span class="tag">CNC Fanuc</span>
+                        <span class="tag">Ladder Logic / ST</span>
+                        <span class="tag">OTC Robot</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-microchip highlight"></i> IIoT & Hardware</h3>
+                    <div class="skill-tags">
+                        <span class="tag">ESP32 / Arduino</span>
+                        <span class="tag">STM32</span>
+                        <span class="tag">Node-RED</span>
+                        <span class="tag">InfluxDB</span>
+                        <span class="tag">MQTT / WebSocket</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-laptop-code highlight"></i> Software & Dev</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Python (ML/YOLO)</span>
+                        <span class="tag">C# / .NET</span>
+                        <span class="tag">Java (Android)</span>
+                        <span class="tag">PHP / Web Dev</span>
+                        <span class="tag">SQL / Database</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools highlight"></i> Tools & Design</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Creo Parametric (3D)</span>
+                        <span class="tag">KiCAD (PCB)</span>
+                        <span class="tag">Visual Studio</span>
+                        <span class="tag">Android Studio</span>
+                        <span class="tag">OBS Studio</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION (WITH GALLERY DATA-ID) -->
+    <section id="projects" style="background-color: #0d1522;">
+        <div class="container">
+            <h2 class="section-title">All Projects</h2>
+            <p style="text-align:center; color:var(--text-muted); margin-bottom:2rem;">Klik gambar untuk melihat galeri dokumentasi</p>
+            
+            <div class="projects-grid reveal">
+                
+                <!-- Project 1: AMR -->
+                <div class="project-card" data-project-id="p1">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/amr1/600/400" alt="AMR System" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Autonomous Material Transport (AMR)</h3>
+                        <p class="project-desc">Sistem transportasi material otomatis berbasis AMR & FMR. Digitalisasi supply material gudang ke line produksi.</p>
+                        <div class="project-meta">
+                            <span class="project-company">PT GS Battery</span>
+                            <span class="project-year">2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: RFID -->
+                <div class="project-card" data-project-id="p2">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/rfid1/600/400" alt="QR RFID Integration" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">QR Code & RFID Integration</h3>
+                        <p class="project-desc">Integrasi identifikasi material dan parameter mesin untuk validasi otomatis dan mencegah mismatch produksi.</p>
+                        <div class="project-meta">
+                            <span class="project-company">PT GS Battery</span>
+                            <span class="project-year">2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: YOLO -->
+                <div class="project-card" data-project-id="p3">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/yolo1/600/400" alt="YOLO Inspection" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">YOLO Stacking Inspection</h3>
+                        <p class="project-desc">Sistem inspeksi berbasis Computer Vision (YOLO) untuk QC part otomatis, mengurangi human error.</p>
+                        <div class="project-meta">
+                            <span class="project-company">PT GS Battery</span>
+                            <span class="project-year">2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Auto Spray -->
+                <div class="project-card" data-project-id="p4">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/spray1/600/400" alt="Auto Spray COS" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Auto Spray COS Mold</h3>
+                        <p class="project-desc">Sistem otomasi proses spray pada mold COS untuk meningkatkan konsistensi hasil coating dan efisiensi.</p>
+                        <div class="project-meta">
+                            <span class="project-company">PT GS Battery</span>
+                            <span class="project-year">2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: UTPE AGV -->
+                <div class="project-card" data-project-id="p5">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/utpe1/600/400" alt="UTPE AGV" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Autonomous UTPE AGV</h3>
+                        <p class="project-desc">Pengembangan kontrol manual AGV (joystick STM32) dan sistem navigasi otomatis menggunakan LiDAR & IMU.</p>
+                        <div class="project-meta">
+                            <span class="project-company">Politeknik Astra</span>
+                            <span class="project-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: KRTMI -->
+                <div class="project-card" data-project-id="p6">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/krtmi1/600/400" alt="KRTMI Robot" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">KRTMI Robot Competition</h3>
+                        <p class="project-desc">Memprogram robot pemilah (otomatis) & pengumpan (manual). Integrasi komunikasi STM32, ESP32, Mini PC.</p>
+                        <div class="project-meta">
+                            <span class="project-company">Kemendikbud</span>
+                            <span class="project-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 7: Hydraulic -->
+                <div class="project-card" data-project-id="p7">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/hydraulic1/600/400" alt="Dump Truck Monitoring" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Hydraulic Oil Monitoring</h3>
+                        <p class="project-desc">Monitoring tekanan hidrolik Dump Truck berbasis ESP32, integrasi database (XAMPP) dan visualisasi web.</p>
+                        <div class="project-meta">
+                            <span class="project-company">Politeknik Astra</span>
+                            <span class="project-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 8: Lawn Mower -->
+                <div class="project-card" data-project-id="p8">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/lawn1/600/400" alt="AGV Lawn Mower" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">AGV Lawn Mower Control</h3>
+                        <p class="project-desc">Integrasi hardware (STM32 & ESP32), aplikasi Desktop (C#), dan Android untuk monitoring & kontrol.</p>
+                        <div class="project-meta">
+                            <span class="project-company">Politeknik Astra</span>
+                            <span class="project-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 9: Panel Cloud -->
+                <div class="project-card" data-project-id="p9">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/panel1/600/400" alt="Panel Cloud Seeding" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Panel Cloud Seeding</h3>
+                        <p class="project-desc">Perancangan, pembuatan, wiring, dan integrasi komponen panel kontrol sistem Cloud Seeding.</p>
+                        <div class="project-meta">
+                            <span class="project-company">PT. Pamapersada</span>
+                            <span class="project-year">2023</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 10: Gear Display -->
+                <div class="project-card" data-project-id="p10">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/gear1/600/400" alt="Gear Display Motor" title="Klik untuk galeri">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Alat Bantu Gear Display</h3>
+                        <p class="project-desc">Pembuatan dan instalasi konektor hardware ke unit motor (Vario, CB150, CB400) untuk gear display.</p>
+                        <div class="project-meta">
+                            <span class="project-company">PT. Astra Honda Motor</span>
+                            <span class="project-year">2023</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ACHIEVEMENTS SECTION (SINGLE IMAGE) -->
+    <section id="achievements">
+        <div class="container">
+            <h2 class="section-title">Achievements & Certificates</h2>
+            <div class="achievements-grid reveal">
+                
+                <!-- 1. Juara 1 TED 2024 -->
+                <div class="achievement-card rank-gold">
+                    <div class="cert-img-container">
+                        <img src="https://picsum.photos/seed/ted24/600/400" alt="Sertifikat TED 2024">
+                    </div>
+                    <div class="achievement-info">
+                        <div class="rank-badge"><i class="fas fa-trophy"></i> Juara 1</div>
+                        <h3 class="achievement-title">Lomba PLC Tech Enthusiast Day (TED)</h3>
+                        <span class="achievement-event">Universitas Gadjah Mada</span>
+                        <span class="achievement-year">2024</span>
+                    </div>
+                </div>
+
+                <!-- 2. Juara 1 Polines 2024 -->
+                <div class="achievement-card rank-gold">
+                    <div class="cert-img-container">
+                        <img src="https://picsum.photos/seed/polines24/600/400" alt="Sertifikat Polines 2024">
+                    </div>
+                    <div class="achievement-info">
+                        <div class="rank-badge"><i class="fas fa-trophy"></i> Juara 1</div>
+                        <h3 class="achievement-title">Inovasi Elektro Expo (PLC & SCADA)</h3>
+                        <span class="achievement-event">Politeknik Negeri Semarang</span>
+                        <span class="achievement-year">2024</span>
+                    </div>
+                </div>
+
+                <!-- 3. Juara 2 UNP 2025 -->
+                <div class="achievement-card rank-silver">
+                    <div class="cert-img-container">
+                        <img src="https://picsum.photos/seed/unp25/600/400" alt="Sertifikat UNP 2025">
+                    </div>
+                    <div class="achievement-info">
+                        <div class="rank-badge"><i class="fas fa-medal"></i> Juara 2</div>
+                        <h3 class="achievement-title">Best Troubleshooting Skill (Robotic)</h3>
+                        <span class="achievement-event">Universitas Negeri Padang</span>
+                        <span class="achievement-year">2025</span>
+                    </div>
+                </div>
+
+                <!-- 4. Juara 2 WPEC 2024 -->
+                <div class="achievement-card rank-silver">
+                    <div class="cert-img-container">
+                        <img src="https://picsum.photos/seed/wpec24/600/400" alt="Sertifikat WPEC 2024">
+                    </div>
+                    <div class="achievement-info">
+                        <div class="rank-badge"><i class="fas fa-medal"></i> Juara 2</div>
+                        <h3 class="achievement-title">Workshop Electro PLC Competition (WPEC)</h3>
+                        <span class="achievement-event">Politeknik Negeri Malang</span>
+                        <span class="achievement-year">2024</span>
+                    </div>
+                </div>
+
+                <!-- 5. Juara 2 FUSE 2024 -->
+                <div class="achievement-card rank-silver">
+                    <div class="cert-img-container">
+                        <img src="https://picsum.photos/seed/fuse24/600/400" alt="Sertifikat FUSE 2024">
+                    </div>
+                    <div class="achievement-info">
+                        <div class="rank-badge"><i class="fas fa-medal"></i> Juara 2</div>
+                        <h3 class="achievement-title">Future Automation Skills Exhibition (FUSE)</h3>
+                        <span class="achievement-event">Politeknik Manufaktur Bandung</span>
+                        <span class="achievement-year">2024</span>
+                    </div>
+                </div>
+
+                <!-- 6. Juara 2 TED 2023 -->
+                <div class="achievement-card rank-silver">
+                    <div class="cert-img-container">
+                        <img src="https://picsum.photos/seed/ted23/600/400" alt="Sertifikat TED 2023">
+                    </div>
+                    <div class="achievement-info">
+                        <div class="rank-badge"><i class="fas fa-medal"></i> Juara 2</div>
+                        <h3 class="achievement-title">Lomba PLC Tech Enthusiast Day (TED)</h3>
+                        <span class="achievement-event">Universitas Gadjah Mada</span>
+                        <span class="achievement-year">2023</span>
+                    </div>
+                </div>
+
+                <!-- 7. Juara 3 WorldSkills 2024 -->
+                <div class="achievement-card rank-bronze">
+                    <div class="cert-img-container">
+                        <img src="https://picsum.photos/seed/worldskills24/600/400" alt="Sertifikat WorldSkills 2024">
+                    </div>
+                    <div class="achievement-info">
+                        <div class="rank-badge"><i class="fas fa-award"></i> Juara 3</div>
+                        <h3 class="achievement-title">Seleksi Daerah WorldSkills ASEAN (Mechatronics)</h3>
+                        <span class="achievement-event">BBPVP Serang</span>
+                        <span class="achievement-year">2024</span>
+                    </div>
+                </div>
+
+                <!-- 8. Juara 3 UNJ 2023 -->
+                <div class="achievement-card rank-bronze">
+                    <div class="cert-img-container">
+                        <img src="https://picsum.photos/seed/unj23/600/400" alt="Sertifikat UNJ 2023">
+                    </div>
+                    <div class="achievement-info">
+                        <div class="rank-badge"><i class="fas fa-award"></i> Juara 3</div>
+                        <h3 class="achievement-title">Electrical Engineering Expo (PLC)</h3>
+                        <span class="achievement-event">Universitas Negeri Jakarta</span>
+                        <span class="achievement-year">2023</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" style="background: linear-gradient(to top, #050911, #0b1120);">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content reveal">
+                <p>Tertarik untuk berkolaborasi dalam proyek digitalisasi manufaktur atau ingin mendiskusikan teknologi terbaru? Jangan ragu untuk menghubungi saya.</p>
+                <div class="contact-links">
+                    <a href="mailto:ahmadnugroho234@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i><span>ahmadnugroho234@gmail.com</span>
+                    </a>
+                    <a href="https://instagram.com/hmdndng" target="_blank" class="contact-item">
+                        <i class="fab fa-instagram"></i><span>@hmdndng</span>
+                    </a>
+                    <a href="https://wa.me/6282132325075" target="_blank" class="contact-item">
+                        <i class="fab fa-whatsapp"></i><span>+62 821 3232 5075</span>
+                    </a>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i><span>Karawang, Jawa Barat</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ahmad Andi Nugroho. All Rights Reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">Designed with <i class="fas fa-code" style="color: var(--primary);"></i> for Industry 4.0</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
     <script>
-      const mediaList = [
-        { type: "image", src: "IMG/1.png" },
-        { type: "image", src: "IMG/2.png" },
-        { type: "image", src: "IMG/3.png" },
-        { type: "image", src: "IMG/4.png" },
-        { type: "image", src: "IMG/5.png" },
-        { type: "image", src: "IMG/6.png" },
-        { type: "image", src: "IMG/7.png" },
-        { type: "image", src: "IMG/10.png" },
-        { type: "image", src: "IMG/11.png" },
-        { type: "image", src: "IMG/12.png" },
-        { type: "image", src: "IMG/13.png" },
-        { type: "image", src: "IMG/18.png" },
-        { type: "image", src: "IMG/20.png" },
-        { type: "image", src: "IMG/21.png" },
-        { type: "image", src: "IMG/22.png" },
-        { type: "image", src: "IMG/23.png" },
-        { type: "image", src: "IMG/24.png" },
-        { type: "image", src: "IMG/25.png" },
-        { type: "image", src: "IMG/26.png" },
-        { type: "image", src: "IMG/27.png" },
-        { type: "image", src: "IMG/28.png" },
-        { type: "image", src: "IMG/29.png" },
-      ];
+        // --- 1. KONFIGURASI GALERI PROYEK ---
+        // Di sini Anda bisa menambahkan nama file foto dokumentasi asli Anda.
+        // Contoh: ['img/proyek1-foto1.jpg', 'img/proyek1-foto2.jpg', 'img/proyek1-foto3.jpg']
+        const projectGalleries = {
+            "p1": [ // Proyek AMR
+                "https://picsum.photos/seed/amr1/800/600", 
+                "https://picsum.photos/seed/amr2/800/600", 
+                "https://picsum.photos/seed/amr3/800/600"
+            ],
+            "p2": [ // Proyek RFID
+                "https://picsum.photos/seed/rfid1/800/600", 
+                "https://picsum.photos/seed/rfid2/800/600"
+            ],
+            "p3": [ // Proyek YOLO
+                "https://picsum.photos/seed/yolo1/800/600", 
+                "https://picsum.photos/seed/yolo2/800/600", 
+                "https://picsum.photos/seed/yolo3/800/600"
+            ],
+            "p4": [ // Proyek Spray
+                "https://picsum.photos/seed/spray1/800/600", 
+                "https://picsum.photos/seed/spray2/800/600"
+            ],
+            "p5": [ // Proyek UTPE
+                "https://picsum.photos/seed/utpe1/800/600", 
+                "https://picsum.photos/seed/utpe2/800/600"
+            ],
+            "p6": [ // Proyek KRTMI
+                "https://picsum.photos/seed/krtmi1/800/600", 
+                "https://picsum.photos/seed/krtmi2/800/600"
+            ],
+            "p7": [ // Proyek Hydraulic
+                "https://picsum.photos/seed/hydraulic1/800/600", 
+                "https://picsum.photos/seed/hydraulic2/800/600"
+            ],
+            "p8": [ // Proyek Lawn Mower
+                "https://picsum.photos/seed/lawn1/800/600", 
+                "https://picsum.photos/seed/lawn2/800/600"
+            ],
+            "p9": [ // Proyek Panel
+                "https://picsum.photos/seed/panel1/800/600", 
+                "https://picsum.photos/seed/panel2/800/600"
+            ],
+            "p10": [ // Proyek Gear
+                "https://picsum.photos/seed/gear1/800/600", 
+                "https://picsum.photos/seed/gear2/800/600"
+            ]
+        };
 
-      let currentIndex = 0;
+        // --- 2. LIGHTBOX & GALLERY LOGIC ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        const closeBtn = document.querySelector('.close-lightbox');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
 
-      function showMedia(index) {
-        const mediaContainer = document.getElementById("media-container");
-        const btnStart = document.getElementById("btn-start");
-        const btnNext = document.getElementById("btn-next");
-        const txtinput = document.getElementById("text-input");
-        const btnMateri = document.getElementById("btn-materi");
-        const btnMateri1 = document.getElementById("btn-materi1");
-        const btnMateri2 = document.getElementById("btn-materi2");
-        const btnMateri3 = document.getElementById("btn-materi3");
-        const btnQuiz = document.getElementById("btn-quiz");
-        const btnGame = document.getElementById("btn-game");
-        const btnNextM1 = document.getElementById("btn-nextm1");
-        const btnBackM1 = document.getElementById("btn-backm1");
-        const btnBackM2 = document.getElementById("btn-backm2");
-        const btnBackM3 = document.getElementById("btn-backm3");
-        // Hapus media lama (kecuali tombol)
-        mediaContainer
-          .querySelectorAll(
-            "img:not(#btn-start img):not(#btn-next img):not(#btn-materi img):not(#btn-materi1 img):not(#btn-materi2 img):not(#btn-materi3 img):not(#btn-quiz img):not(#btn-game img):not(#btn-nextm1 img):not(#btn-backm1 img):not(#btn-backm2 img):not(#btn-backm3 img), video"
-          )
-          .forEach((el) => el.remove());
+        let currentGallery = [];
+        let currentIndex = 0;
 
-        const currentMedia = mediaList[index];
-        const mediaElement = document.createElement(
-          currentMedia.type === "video" ? "video" : "img"
-        );
-        mediaElement.src = currentMedia.src;
-        if (currentMedia.type === "video") {
-          mediaElement.controls = true;
-          mediaElement.autoplay = true;
-          mediaElement.loop = true;
-          mediaElement.muted = true;
-        }
+        // Event Listener untuk semua gambar (Proyek & Lomba)
+        document.querySelectorAll('.project-img img, .cert-img-container img').forEach(img => {
+            img.addEventListener('click', function() {
+                const projectCard = this.closest('.project-card');
+                
+                // Cek apakah ini proyek (punya data-project-id) atau lomba (tidak punya)
+                if (projectCard && projectCard.dataset.projectId && projectGalleries[projectCard.dataset.projectId]) {
+                    // --- MODE GALERI (PROYEK) ---
+                    currentGallery = projectGalleries[projectCard.dataset.projectId];
+                    // Cari index gambar yang diklik (jika gambar ada di list galeri)
+                    const clickedSrc = this.getAttribute('src');
+                    currentIndex = currentGallery.indexOf(clickedSrc);
+                    if (currentIndex === -1) currentIndex = 0; // Default ke 0 jika tidak ditemukan
 
-        // Tambahkan media ke container
-        mediaContainer.insertBefore(mediaElement, btnStart);
+                    // Tampilkan navigasi
+                    prevBtn.style.display = 'block';
+                    nextBtn.style.display = 'block';
+                    
+                    // Update Caption dengan judul proyek
+                    const title = projectCard.querySelector('.project-title').innerText;
+                    lightboxCaption.innerText = title;
+                } else {
+                    // --- MODE SINGLE IMAGE (LOMBA) ---
+                    currentGallery = [this.src];
+                    currentIndex = 0;
 
-        // Tampilkan tombol sesuai keadaan (tetap format aslimu)
-        btnStart.style.display = index === 0 ? "block" : "none";
-        btnNext.style.display = index === 1 ? "block" : "none";
-        txtinput.style.display = index === 1 ? "block" : "none";
-        btnMateri.style.display = index === 2 ? "block" : "none"; // ✅ tampil mulai slide ke-3
-        btnQuiz.style.display = index === 2 ? "block" : "none";
-        btnGame.style.display = index === 2 ? "block" : "none";
-        btnMateri1.style.display = index === 3 ? "block" : "none";
-        btnMateri2.style.display = index === 3 ? "block" : "none";
-        btnMateri3.style.display = index === 3 ? "block" : "none";
-        btnNextM1.style.display = [
-          4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20,
-        ].includes(index)
-          ? "block"
-          : "none";
-        btnBackM1.style.display = [
-          4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21,
-        ].includes(index)
-          ? "block"
-          : "none";
-        btnBackM2.style.display = index === 13 ? "block" : "none";
-        btnBackM3.style.display = index === 18 ? "block" : "none";
+                    // Sembunyikan navigasi
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
 
-        // Jika sedang di slide 1 (input nama)
-        if (index === 1) {
-          txtinput.value = ""; // kosongkan input saat slide dimulai
-          btnNext.style.display = "none"; // sembunyikan tombol next sampai user isi teks
+                    // Update Caption dengan alt text
+                    lightboxCaption.innerText = this.alt || "Sertifikat";
+                }
 
-          txtinput.addEventListener("input", () => {
-            btnNext.style.display =
-              txtinput.value.trim() !== "" ? "block" : "none";
-          });
-        }
-      }
-
-      function nextMedia() {
-        if (currentIndex < mediaList.length - 1) {
-          currentIndex++;
-          showMedia(currentIndex);
-        } else {
-          alert("Perjalanan selesai!");
-        }
-      }
-
-      function backMedia() {
-        if (currentIndex > 0) {
-          currentIndex--;
-          showMedia(currentIndex);
-        }
-      }
-
-      // Loader
-      function createProgressSegments() {
-        const container = document.getElementById("progress-segments");
-        container.innerHTML = "";
-        for (let i = 0; i < 10; i++) {
-          const seg = document.createElement("div");
-          seg.className = "segment";
-          container.appendChild(seg);
-        }
-      }
-
-      function animateProgressLoader(callback) {
-        const segments = document.querySelectorAll(".segment");
-        let i = 0;
-        const interval = setInterval(() => {
-          if (i < segments.length) {
-            segments[i].classList.add("filled");
-            i++;
-          } else {
-            clearInterval(interval);
-            setTimeout(callback, 500);
-          }
-        }, 200);
-      }
-
-      function startJourney() {
-        const loader = document.getElementById("progress-loader-container");
-        const btnStart = document.getElementById("btn-start");
-        btnStart.style.display = "none";
-        loader.style.display = "flex";
-        createProgressSegments();
-        animateProgressLoader(() => {
-          loader.style.display = "none";
-          currentIndex = 1;
-          showMedia(currentIndex);
+                updateLightboxContent();
+                lightbox.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
         });
-      }
 
-      function MateriButton() {
-        currentIndex = 3; // pindah ke index 3 → IMG/4.png
-        showMedia(currentIndex);
-      }
+        // Fungsi Update Tampilan Lightbox
+        function updateLightboxContent() {
+            lightboxImg.src = currentGallery[currentIndex];
+            
+            // Tampilkan counter (1/3) hanya jika galeri
+            if (currentGallery.length > 1) {
+                lightboxCounter.innerText = `${currentIndex + 1} / ${currentGallery.length}`;
+            } else {
+                lightboxCounter.innerText = "";
+            }
+        }
 
-      function Materi1Button() {
-        currentIndex = 4; // pindah ke index 3 → IMG/4.png
-        showMedia(currentIndex);
-      }
+        // Navigasi
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentIndex = (currentIndex + 1) % currentGallery.length;
+            updateLightboxContent();
+        });
 
-      function Materi2Button() {
-        currentIndex = 13; // pindah ke index 3 → IMG/4.png
-        showMedia(currentIndex);
-      }
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+            updateLightboxContent();
+        });
 
-      function Materi3Button() {
-        currentIndex = 18; // pindah ke index 3 → IMG/4.png
-        showMedia(currentIndex);
-      }
-      function backMedia2() {
-        currentIndex = 3; // pindah ke index 3 → IMG/4.png
-        showMedia(currentIndex);
-      }
-      function backMedia3() {
-        currentIndex = 3; // pindah ke index 3 → IMG/4.png
-        showMedia(currentIndex);
-      }
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'Escape') closeLightbox();
+                if (currentGallery.length > 1) {
+                    if (e.key === 'ArrowRight') nextBtn.click();
+                    if (e.key === 'ArrowLeft') prevBtn.click();
+                }
+            }
+        });
 
-      function QuizButton() {}
-      function GameButton() {}
+        // Tutup Lightbox
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
 
-      // Pertama kali load
-      showMedia(currentIndex);
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+                closeLightbox();
+            }
+        });
+
+        // --- 3. Sticky Navbar & Active Link Highlighting ---
+        const navbar = document.getElementById('navbar');
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            if (window.scrollY > 50) { navbar.style.boxShadow = "0 2px 10px rgba(0,0,0,0.3)"; }
+            else { navbar.style.boxShadow = "none"; }
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - 150)) { current = section.getAttribute('id'); }
+            });
+
+            navLinks.forEach(a => {
+                a.classList.remove('highlight');
+                if (a.getAttribute('href').includes(current)) { a.classList.add('highlight'); }
+            });
+        });
+
+        // --- 4. Mobile Menu Toggle ---
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-links');
+        const navLinksItems = document.querySelectorAll('.nav-links li');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.querySelector('i').classList.toggle('fa-times');
+            hamburger.querySelector('i').classList.toggle('fa-bars');
+        });
+
+        navLinksItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // --- 5. Scroll Reveal Animation ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) { reveal.classList.add('active'); }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // --- 6. Hero Background Animation ---
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+        const particleCount = 60, connectionDistance = 150, speed = 0.5;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width; this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * speed; this.vy = (Math.random() - 0.5) * speed;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#0ea5e9'; ctx.fill();
+            }
+        }
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(); particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(14, 165, 233, ${1 - distance / connectionDistance})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); animateCanvas();
     </script>
-  </body>
+</body>
 </html>
